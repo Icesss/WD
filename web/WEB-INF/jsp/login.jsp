@@ -53,7 +53,7 @@
         <form action="/j_spring_security_check" method="post">
             <c:if test="${param.error != null}">
             <div class="alert alert-danger">
-                Invalid username and password.
+                Invalid username or password.
             </div>
             </c:if>
             <c:if test="${param.logout != null}">
@@ -62,16 +62,17 @@
             </div>
             </c:if>
             <h2 class="form-signin-heading">Please sign in</h2>
-            <input type="text" class="form-control" name="j_username" placeholder="Email address" required autofocus value="netcracker">
-            <input type="password" class="form-control" name="j_password" placeholder="Password" required value="12345">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            <input type="text" class="form-control" name="j_username" placeholder="Email address" required >
+            <input type="password" class="form-control" name="j_password" placeholder="Password" required >
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
             <div class="alert alert-info" role="alert">
-            <p>Ваш логин: <sec:authentication property="principal.username" /></p>
+            <p>Your login: <sec:authentication property="principal.username" /></p>
+                <p><sec:authentication property="principal.authorities"/></p>
             </div>
-            <p><a class="btn btn-lg btn-danger" href="<c:url value="/logout" />" role="button">Выйти</a></p>
+            <p><a class="btn btn-lg btn-danger" href="<c:url value="/logout" />" role="button">Logout</a></p>
         </sec:authorize>
     </div>
 </div>

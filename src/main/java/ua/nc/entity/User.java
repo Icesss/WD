@@ -8,6 +8,7 @@ import java.util.Set;
  * Created by Pavel on 18.04.2016.
  */
 public class User {
+    private Integer id;
     private String name;
     private String email;
     private String password;
@@ -16,11 +17,20 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, Set<Role> roles) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

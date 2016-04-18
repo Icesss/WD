@@ -25,6 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new Md5PasswordEncoder());
+/*        auth
+                .inMemoryAuthentication()
+                .withUser("netcracker")
+                .password("12345")
+                .roles("ADMIN");*/
     }
 
     @Override
@@ -32,8 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
                 .and();
+
+        http.authorizeRequests()
+                .antMatchers("/admin**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
 
         http.formLogin()
                 .loginPage("/login")
